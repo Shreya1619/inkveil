@@ -66,3 +66,7 @@ Thumbs.db
 temp_*
 scratch/
 *.log
+
+# Local demo recordings and extension build zips
+Screenshots/*.mp4
+*.zip
