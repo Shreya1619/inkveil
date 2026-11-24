@@ -3,6 +3,9 @@
 > **Zero-cost, context-aware Japanese-to-English manga translation in your browser.**
 > Detects speech bubbles on any Japanese manga page, translates them into natural English in proper Right-to-Left reading order using a free AI vision model, and renders interactive comic-styled overlays — all from a local Docker backend with no recurring cloud fees.
 
+<div align="center">
+  <img src="Screenshots/inkveil-demo.gif" alt="InkVeil translating a 2-page Japanese manga spread with live font resizing and Peek mode" width="850">
+</div>
 ---
 
 ## Table of Contents
