@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>InkVeil</title>
+  <style>
+    :root {
+      --bg: #121318;
+      --card-bg: #1b1d24;
+      --accent: #ff4757;
+      --accent-hover: #ff6b81;
+      --text: #f1f2f6;
+      --text-muted: #a4b0be;
+      --border: #2f3542;
+      --input-bg: #222530;
+      --success: #2ed573;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      padding: 16px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.5px;
+    }
+
+    header h1 span {
+      color: var(--accent);
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    select, input[type="text"], input[type="password"] {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    select:focus, input:focus {
+      border-color: var(--accent);
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .toggle-pass {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    .help-text {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .slider-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2px;
+    }
+
+    .slider-header label {
+      margin-bottom: 0;
+    }
+
+    .slider-val {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      outline: none;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    button.primary-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    button.primary-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    button.secondary-btn {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    button.secondary-btn:hover {
+      background: var(--input-bg);
+      border-color: var(--text-muted);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    #status-msg {
+      margin-top: 12px;
+      font-size: 11px;
+      min-height: 16px;
+      line-height: 1.4;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .status-ok {
+      color: var(--success) !important;
+    }
+
+    .status-err {
+      color: var(--accent) !important;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="icon32.png" width="22" height="22" alt="InkVeil" style="border-radius: 4px; object-fit: cover;">
+    <h1>Ink<span>Veil</span></h1>
+  </header>
+
+  <div class="form-group">
+    <label for="provider-select">LLM Provider</label>
+    <select id="provider-select">
+      <option value="gemini">Google AI Studio Free (gemini-3.8-flash)</option>
+      <option value="openrouter">OpenRouter Free (openrouter/free)</option>
+      <option value="ollama">Local Ollama (gemma4)</option>
+    </select>
+  </div>
+
+  <div class="form-group" id="api-key-group">
+    <label for="api-key-input">API Key</label>
+    <div class="password-wrap">
+      <input type="password" id="api-key-input" placeholder="Paste your API key here">
+      <button type="button" class="toggle-pass" id="toggle-key-btn">Show</button>
+    </div>
+    <div class="help-text" id="api-key-help">Stored locally in chrome.storage.local</div>
+  </div>
+
+  <div class="form-group">
+    <label for="model-input">Custom Model (Optional)</label>
+    <input type="text" id="model-input" placeholder="Default: gemini-3.8-flash">
+  </div>
+
+  <div class="form-group">
+    <div class="slider-wrap">
+      <div class="slider-header">
+        <label for="font-size-slider">Overlay Font Size</label>
+        <span class="slider-val" id="font-size-val">12px</span>
+      </div>
+      <input type="range" id="font-size-slider" min="10" max="18" value="12" step="1">
+    </div>
+    <div class="help-text">Live updates active overlays & new translations</div>
+  </div>
+
+  <div class="btn-group">
+    <button class="primary-btn" id="translate-btn">
+      <span>Translate Main Page</span>
+    </button>
+    <button class="secondary-btn" id="toggle-overlays-btn">
+      <span>Toggle Overlays</span>
+    </button>
+    <button class="secondary-btn" id="clear-glossary-btn">
+      <span>Clear Saved Names & Terms</span>
+    </button>
+    <div class="help-text" style="text-align: center; margin-top: -2px;">Clears remembered character names & terms so the next page starts fresh.</div>
+  </div>
+
+  <div id="status-msg">Ready</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
